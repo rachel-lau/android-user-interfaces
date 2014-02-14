@@ -103,6 +103,9 @@ public class AddToDoActivity extends Activity {
 				log("Entered resetButton.OnClickListener.onClick()");
 
 				//TODO - Reset data fields to default values
+				mTitleText.setText("");
+				mStatusRadioGroup.check(mDefaultStatusButton.getId());
+				mPriorityRadioGroup.check(mDefaultPriorityButton.getId());
 				setDefaultDateTime();
 
 			
