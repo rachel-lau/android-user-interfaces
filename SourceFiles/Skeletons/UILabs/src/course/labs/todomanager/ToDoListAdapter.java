@@ -112,7 +112,11 @@ public class ToDoListAdapter extends BaseAdapter {
 				// TODO - Set up and implement an OnCheckedChangeListener, which 
 				// is called when the user toggles the status checkbox
 
-				statusView.setChecked(isChecked);
+				if (isChecked) {
+					toDoItem.setStatus(Status.DONE);
+				} else {
+					toDoItem.setStatus(Status.NOTDONE);
+				}
 			
 			}
 		});
