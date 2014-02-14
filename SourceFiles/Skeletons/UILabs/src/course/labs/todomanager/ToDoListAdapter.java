@@ -52,7 +52,6 @@ public class ToDoListAdapter extends BaseAdapter {
 
 	// Returns the number of ToDoItems
 
-	@Override
 	public int getCount() {
 
 		return mItems.size();
@@ -61,7 +60,6 @@ public class ToDoListAdapter extends BaseAdapter {
 
 	// Retrieve the number of ToDoItems
 
-	@Override
 	public Object getItem(int pos) {
 
 		return mItems.get(pos);
@@ -71,7 +69,6 @@ public class ToDoListAdapter extends BaseAdapter {
 	// Get the ID for the ToDoItem
 	// In this case it's just the position
 
-	@Override
 	public long getItemId(int pos) {
 
 		return pos;
@@ -81,16 +78,16 @@ public class ToDoListAdapter extends BaseAdapter {
 	//Create a View to display the ToDoItem 
 	// at specified position in mItems
 
-	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 
 		//TODO - Get the current ToDoItem
-		final ToDoItem toDoItem = null;
+		final ToDoItem toDoItem = mItems.get(position);
 
 		//TODO - Inflate the View for this ToDoItem
 		// from todo_item.xml.
-		RelativeLayout itemLayout = null;
+		LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		RelativeLayout itemLayout = (RelativeLayout) inflater.inflate(R.layout.todo_item, parent, false);
 		
 		//TODO - Fill in specific ToDoItem data
 		// Remember that the data that goes in this View
@@ -99,15 +96,15 @@ public class ToDoListAdapter extends BaseAdapter {
 
 		//TODO - Display Title in TextView
 
-		final TextView titleView = null;
+		final TextView titleView = (TextView) itemLayout.findViewById(R.id.titleView);
+		titleView.setText(toDoItem.getTitle());
 		
 		// TODO - Set up Status CheckBox
 	
-		final CheckBox statusView = null;
-		
+		final CheckBox statusView = (CheckBox) itemLayout.findViewById(R.id.statusCheckBox);
+		statusView.setChecked(toDoItem.getStatus() == Status.DONE);
 		
 		statusView.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
 				log("Entered onCheckedChanged()");
@@ -122,13 +119,14 @@ public class ToDoListAdapter extends BaseAdapter {
 
 		//TODO - Display Priority in a TextView
 
-		final TextView priorityView = null;
+		final TextView priorityView = (TextView) itemLayout.findViewById(R.id.priorityView);
+		priorityView.setText(toDoItem.getPriority().toString());
 
-		
 		// TODO - Display Time and Date. 
 		// Hint - use ToDoItem.FORMAT.format(toDoItem.getDate()) to get date and time String
 
-		final TextView dateView = null;
+		final TextView dateView = (TextView) itemLayout.findViewById(R.id.dateView);
+		dateView.setText(toDoItem.FORMAT.format(toDoItem.getDate()));
 				
 
 		// Return the View you just created

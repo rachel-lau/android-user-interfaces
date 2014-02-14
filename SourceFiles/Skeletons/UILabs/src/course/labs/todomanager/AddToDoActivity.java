@@ -66,7 +66,6 @@ public class AddToDoActivity extends Activity {
 		final Button datePickerButton = (Button) findViewById(R.id.date_picker_button);
 		datePickerButton.setOnClickListener(new OnClickListener() {
 
-			@Override
 			public void onClick(View v) {
 				showDatePickerDialog();
 			}
@@ -78,7 +77,6 @@ public class AddToDoActivity extends Activity {
 		final Button timePickerButton = (Button) findViewById(R.id.time_picker_button);
 		timePickerButton.setOnClickListener(new OnClickListener() {
 
-			@Override
 			public void onClick(View v) {
 				showTimePickerDialog();
 			}
@@ -88,11 +86,11 @@ public class AddToDoActivity extends Activity {
 
 		final Button cancelButton = (Button) findViewById(R.id.cancelButton);
 		cancelButton.setOnClickListener(new OnClickListener() {
-			@Override
 			public void onClick(View v) {
 				log("Entered cancelButton.OnClickListener.onClick()");
 
 				//TODO - Implement onClick().  
+				finish();
 
 			}
 		});
@@ -101,12 +99,11 @@ public class AddToDoActivity extends Activity {
 
 		final Button resetButton = (Button) findViewById(R.id.resetButton);
 		resetButton.setOnClickListener(new OnClickListener() {
-			@Override
 			public void onClick(View v) {
 				log("Entered resetButton.OnClickListener.onClick()");
 
 				//TODO - Reset data fields to default values
-				
+				setDefaultDateTime();
 
 			
 			
@@ -119,20 +116,19 @@ public class AddToDoActivity extends Activity {
 		
 		final Button submitButton = (Button) findViewById(R.id.submitButton);
 		submitButton.setOnClickListener(new OnClickListener() {
-			@Override
 			public void onClick(View v) {
 				log("Entered submitButton.OnClickListener.onClick()");
 
 				// Gather ToDoItem data  
 				
 				//TODO - Get Priority
-				Priority priority = null;
+				Priority priority = getPriority();
 
 				//TODO -  Get Status
-				Status status = null;
+				Status status = getStatus();
 
 				//TODO -  Title
-				String titleString = null;
+				String titleString = mTitleText.getText().toString();
 
 				// Date
 				String fullDate = dateString + " " + timeString;
@@ -142,7 +138,8 @@ public class AddToDoActivity extends Activity {
 				ToDoItem.packageIntent(data, titleString, priority, status, fullDate);
 
 				//TODO - return data Intent and finish
-				
+				setResult(RESULT_OK, data);
+				finish();
 
 				
 				
@@ -247,7 +244,6 @@ public class AddToDoActivity extends Activity {
 			return new DatePickerDialog(getActivity(), this, year, month, day);
 		}
 
-		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
 			setDateString(year, monthOfYear, dayOfMonth);
